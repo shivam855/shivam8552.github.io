@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>weather App</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            height: 100vh;
+            width: 100vw;
+        }
+        h1   {color: blue;}
+        p    {color: red;}
+        #weatherSun {
+            text-align: center;
+            font-size: 7.5vh;
+        }
+        .box {
+            border-style: solid;
+            background-color: palegreen;
+        }
+        .info {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="wave -one"></div>
+        <div class="wave -two"></div>
+        <div class="wave -three"></div>
+
+
+        <div id="weatherSun">
+            <i class="fas fa-sun" style="color: #eccc68"></i>
+        </div>
+
+        <div class="info">
+            <!-- <h2 class="location"><i class="fas fa-street-view"></i> Pune, In</h2> -->
+            <!-- <p id="date">WED | OCT 23 | 10:49 AM</p> value hardcoded h-->
+            <!-- <h1 class="temp">24.69°C</h1> -->
+            <!-- <h2 class="tempRange">Min 24.69°C | Max 30.05°C </h2> --> 
+            <h2 class="location"><i class="fas fa-street-view"></i> {%location%}, {%country%}</h2>
+            <p id="date"></p>
+            <h1 class="temp">{%tempval%} K</h1>
+            <h2 class="tempRange">Min {%tempmin%} K | Max {%tempmax%} K</h2>
+            
+        </div>
+    </div>
+    <script>
+        const curDate = document.getElementById("date");
+        let weatherSun = document.getElementById("weatherSun");
+
+        const tempStatus = "Clouds";
+
+        const getCurrentDay = () => {
+            var weekday = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", ]
+            let currentDay = new Date();
+            // console.log(weekday[currentDay.getDay()]);
+            return weekday[currentDay.getDay()];
+        }
+
+        const getCurrentTime = () => {
+            var months = [ "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec", ];
+            var now = new Date();
+            var month = months[now.getMonth()].toUpperCase();
+            var date = now.getDate();
+            // console.log(month+" / "+date);
+
+            let hours = now.getHours();
+            let mins = now.getMinutes();
+            
+            let period = "AM";
+
+            if(hours > 11) {
+                period = "PM";
+                if(hours > 12) hours -= 12;
+            }
+
+            if(mins < 10) mins = "0" + mins;
+
+            // console.log(hours + ":" + mins +" "+ period);
+            let time = month + " " + date + " | " + hours + ":" + mins +" "+ period;
+            return time;
+        }
+        
+        // getCurrentDay();
+        // getCurrentTime();
+
+        // console.log(getCurrentDay().toUpperCase() +" | " + getCurrentTime());
+
+        curDate.innerHTML = getCurrentDay().toUpperCase() +" | " + getCurrentTime();
+
+    </script>
+</body>
+</html>
